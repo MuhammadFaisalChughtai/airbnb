@@ -15,6 +15,7 @@ import Footer from "./components/common/footer/Footer";
 import Pricing from "./components/pricing/Pricing";
 import AddProperty from "./components/AddProperty";
 import ShowProperty from "./components/ShowProperty";
+import Detaill from "./components/Detaill";
 
 function App() {
   useEffect(() => {}, []);
@@ -32,6 +33,7 @@ function App() {
             <Route path="/add-property" element={<AddProperty />} />
             <Route path="/properties/:type" element={<ShowProperty />} />
             <Route path="/logout" element={<h1>Logout</h1>} />
+            <Route path="/show-property/:title" element={<Detaill />} />
           </Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

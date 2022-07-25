@@ -232,7 +232,34 @@ img {
 .mb {
   margin-bottom: 80px;
 }
+
+.detail__image{
+  height: 500px;
+  object-fit: cover;
+}
+.container h1{
+  text-align: left;
+}
+.container p{
+  text-align: left;
+}
+.detail__cardDetail{
+  display: flex;
+
+}
+.detail__card{
+  height: 500px;
+  /* width: 600px; */
+  border: 2px solid #87CEFA;
+  padding: 10px;
+}
+.detail__card p{
+  font-weight: 600;
+}
 @media screen and (max-width: 800px) {
+  .detail__cardDetail{
+    flex-direction: column;
+  }
   .grid4,
   .grid3,
   .grid5 {

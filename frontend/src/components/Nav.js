@@ -33,11 +33,11 @@ const Nav = () => {
           <li>
             <Link to="/properties">Properties</Link>
           </li>
-          {/* {role === "admin" && ( */}
-          <li>
-            <Link to="/add-property">Add Property</Link>
-          </li>
-          {/* )} */}
+          {localStorage.getItem("token") && (
+            <li>
+              <Link to="/add-property">Add Property</Link>
+            </li>
+          )}
           <li>
             <Link to="/pricing">Pricing</Link>
           </li>
