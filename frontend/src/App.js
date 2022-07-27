@@ -16,9 +16,13 @@ import Pricing from "./components/pricing/Pricing";
 import AddProperty from "./components/AddProperty";
 import ShowProperty from "./components/ShowProperty";
 import Detaill from "./components/Detaill";
+import UpdateProperty from "./components/UpdateProperty";
+import Search from "./Search";
 
 function App() {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -34,6 +38,11 @@ function App() {
             <Route path="/properties/:type" element={<ShowProperty />} />
             <Route path="/logout" element={<h1>Logout</h1>} />
             <Route path="/show-property/:title" element={<Detaill />} />
+            <Route path="/search" element={<Search />} />
+            <Route
+              path="/update-property/:{data}"
+              element={<UpdateProperty />}
+            />
           </Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

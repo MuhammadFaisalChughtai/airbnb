@@ -13,10 +13,26 @@ function AddProperty() {
     city: "",
     price: "",
     type: "",
+    longitude: "",
+    latitude: "",
+    category: "",
+    priceRange: "",
+    specification: "",
   });
   const [cover, setFile] = useState("");
   const [err, setErr] = useState({});
-  const { pName, location, city, price, type } = formData;
+  const {
+    pName,
+    location,
+    city,
+    price,
+    type,
+    longitude,
+    latitude,
+    category,
+    priceRange,
+    specification,
+  } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +48,19 @@ function AddProperty() {
             "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         };
-        const data = { pName, cover, location, city, price, type };
+        const data = {
+          pName,
+          cover,
+          location,
+          city,
+          price,
+          type,
+          longitude,
+          latitude,
+          category,
+          priceRange,
+          specification,
+        };
         const results = await axios.post(
           "http://localhost:5000/api/property/create-post",
           data,
@@ -69,6 +97,21 @@ function AddProperty() {
     if (!value.type) {
       error.type = "Property type is required!!!";
     }
+    if (!value.latitude) {
+      error.latitude = "latitude is required!!!";
+    }
+    if (!value.longitude) {
+      error.longitude = "longitude is required!!!";
+    }
+    if (!value.category) {
+      error.category = "Category is required!!!";
+    }
+    if (!value.priceRange) {
+      error.priceRange = "Price Range is required!!!";
+    }
+    if (!value.specification) {
+      error.priceRange = "Price Range is required!!!";
+    }
     return error;
   };
 
@@ -99,7 +142,7 @@ function AddProperty() {
   };
   return (
     <div className="register">
-      <ToastContainer />
+    <ToastContainer />
       <h1>Add Property</h1>
       {/* <label>Name</label> */}
       <div>
@@ -148,6 +191,44 @@ function AddProperty() {
       </div>
       <div>
         <input
+          className={`inputBox ${err.city && "reg__outline"}`}
+          type="text"
+          name="latitude"
+          value={latitude}
+          onChange={(e) => onChange(e)}
+          placeholder="Enter Latitude"
+        />
+        <span className="reg__err">{err.latitude}</span>
+      </div>
+      <div>
+        <input
+          className={`inputBox ${err.city && "reg__outline"}`}
+          type="text"
+          name="longitude"
+          value={longitude}
+          onChange={(e) => onChange(e)}
+          placeholder="Enter Longitude"
+        />
+        <span className="reg__err">{err.longitude}</span>
+      </div>
+      <div>
+        <select
+          name="category"
+          onChange={(e) => onChange(e)}
+          className={`inputBox ${err.category && "reg__outline"}`}
+        >
+          <option>Please Select category</option>
+          <option name="category" value="For Rent">
+            For Rent
+          </option>
+          <option name="category" value="For Sale">
+            For Sale
+          </option>
+        </select>
+        <span className="reg__err">{err.category}</span>
+      </div>
+      <div>
+        <input
           className={`inputBox ${err.price && "reg__outline"}`}
           type="text"
           name="price"
@@ -158,41 +239,61 @@ function AddProperty() {
         <span className="reg__err">{err.price}</span>
       </div>
       <div>
-        {/* <input
-          className={`inputBox ${err.type && "reg__outline"}`}
-          type="text"
-          name="type"
-          value={type}
+        <input
+          className={`inputBox ${err.price && "reg__outline"}`}
+          type="number"
+          name="priceRange"
+          value={priceRange}
           onChange={(e) => onChange(e)}
-          placeholder="Enter property type"
-        /> */}
-        <select
-          name="type"
-          onChange={(e) => onChange(e)}
-          className={`inputBox ${err.type && "reg__outline"}`}
-        >
-          <option>Please Select Type</option>
-          <option name="type" value="Family House">
-            Family House
-          </option>
-          <option name="type" value="House & Villa">
-            House & Villa
-          </option>
-          <option name="type" value="Apartment">
-            Apartment
-          </option>
-          <option name="type" value="Office & Studio">
-            Office & Studio
-          </option>
-          <option name="type" value="Villa & Condo">
-            Villa & Condo
-          </option>
-        </select>
-        <span className="reg__err">{err.type}</span>
+          placeholder="Enter price in Digits"
+        />
+        <span className="reg__err">{err.priceRange}</span>
       </div>
-      <button type="submit" className="appButton" onClick={(e) => onSubmit(e)}>
-        Add Property
-      </button>
+      <div>
+        <div>
+          <input
+            className={`inputBox ${err.price && "reg__outline"}`}
+            type="type"
+            name="specification"
+            value={specification}
+            onChange={(e) => onChange(e)}
+            placeholder="Enter Specification"
+          />
+          <span className="reg__err">{err.specification}</span>
+        </div>
+        <div>
+          <select
+            name="type"
+            onChange={(e) => onChange(e)}
+            className={`inputBox ${err.type && "reg__outline"}`}
+          >
+            <option>Please Select Type</option>
+            <option name="type" value="Family House">
+              Family House
+            </option>
+            <option name="type" value="House & Villa">
+              House & Villa
+            </option>
+            <option name="type" value="Apartment">
+              Apartment
+            </option>
+            <option name="type" value="Office & Studio">
+              Office & Studio
+            </option>
+            <option name="type" value="Villa & Condo">
+              Villa & Condo
+            </option>
+          </select>
+          <span className="reg__err">{err.type}</span>
+        </div>
+        <button
+          type="submit"
+          className="appButton"
+          onClick={(e) => onSubmit(e)}
+        >
+          Add Property
+        </button>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,8 @@ const Property = require("../../models/Property");
 const User = require("../../models/User");
 const Image = require("../../models/Image");
 const path = require("path");
+const checkObjectId = require("../../middleware/checkObjectId");
+
 // const checkObjectId = require("../../middlew`a`re/checkObjectId");
 router.post(
   "/create-post",
@@ -24,6 +26,11 @@ router.post(
         city: req.body.city,
         price: req.body.price,
         type: req.body.type,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        category: req.body.category,
+        priceRange: req.body.priceRange,
+        specification: req.body.specification,
       });
 
       const property = await newProperty.save();
@@ -89,4 +96,62 @@ router.post("/specific-property", async (req, res) => {
     });
   }
 });
+router.post("/range-properties", async (req, res) => {
+  try {
+    const { city, type, price } = req.body;
+    console.log(city, type, price);
+    const property = await Property.find({ city, type })
+      .sort({ date: -1 })
+      .populate("user", ["name", "email"]);
+    // .limit(req.body.limit)
+    // .skip(req.body.skip);
+
+    res.json({ property });
+  } catch (err) {
+    res.status(500).json({
+      error: {
+        msg: "Server Error",
+      },
+    });
+  }
+});
+router.post("/view-property", async (req, res) => {
+  try {
+    const pName = req.body.value;
+    const property = await Property.findOne({ pName });
+    res.json({ property });
+  } catch (err) {
+    res.status(500).json({
+      error: {
+        msg: "Server Error",
+      },
+    });
+  }
+});
+router.delete(
+  "/delete-property/:id",
+  [auth, checkObjectId("id")],
+  async (req, res) => {
+    try {
+      console.log("first");
+      const property = await Property.findById(req.params.id);
+
+      if (!property) {
+        return res.status(404).json({ msg: "property not found" });
+      }
+
+      if (property.user.toString() !== req.user.id) {
+        return res.status(401).json({ msg: "User not authorized" });
+      }
+
+      await property.remove();
+
+      res.json({ msg: "property removed" });
+    } catch (err) {
+      console.error(err.message);
+
+      res.status(500).send("Server Error");
+    }
+  }
+);
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Heading from "./common/Heading";
 import axios from "axios";
 function ShowProperty() {
@@ -42,19 +42,23 @@ function ShowProperty() {
       <section className="recent padding">
         <div className="container">
           <Heading
-            title="Recent Property"
+            title={capitalize(type)}
             subtitle="Lorem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
           />
           {/* <RecentCard data={data} /> */}
           <div className="content grid3 mtop">
             {values?.map((item) => (
-              <div className="box shadow" key={item.id}>
-                <div className="img">
-                  <img src={item.cover} alt="" />
-                </div>
-                <div className="text">
-                  <div className="category flex">
-                    {/* <span
+              <Link
+                to={`/show-property/${item.pName.split(" ").join("-")}`}
+                key={item._id}
+              >
+                <div className="box shadow" key={item.id}>
+                  <div className="img">
+                    <img src={item.cover} alt="" />
+                  </div>
+                  <div className="text">
+                    <div className="category flex">
+                      {/* <span
                     style={{
                       background:
                         category === "For Rent" ? "#25b5791a" : "#ff98001a",
@@ -63,20 +67,21 @@ function ShowProperty() {
                   >
                     {category}
                   </span> */}
-                    <i className="fa fa-heart"></i>
+                      <i className="fa fa-heart"></i>
+                    </div>
+                    <h4>{item.pName}</h4>
+                    <p>
+                      <i icon="fa-solid fa-location-dot" /> {item.location}
+                    </p>
                   </div>
-                  <h4>{item.pName}</h4>
-                  <p>
-                    <i icon="fa-solid fa-location-dot" /> {item.location}
-                  </p>
-                </div>
-                <div className="button flex">
-                  <div>
-                    <button className="btn2">{item.price}</button>
+                  <div className="button flex">
+                    <div>
+                      <button className="btn2">{item.price}</button>
+                    </div>
+                    <span>{capitalize(type)}</span>
                   </div>
-                  <span>{capitalize(type)}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

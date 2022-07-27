@@ -25,10 +25,21 @@ const newProperty = new Schema({
     type: String,
     required: true,
   },
+  priceRange: {
+    type: String,
+    required: true,
+  },
   type: {
     type: String,
     required: true,
   },
+  specification: {
+    type: String,
+    required: true,
+  },
+  longitude: { type: String, required: true },
+  latitude: { type: String, required: true },
+  category: { type: String, required: true },
   date: {
     type: Date,
     default: Date.now,

@@ -46,15 +46,18 @@ const RecentCard = () => {
               </div>
               <div className="text">
                 <div className="category flex">
-                  {/* <span
+                  <span
                     style={{
                       background:
-                        category === "For Rent" ? "#25b5791a" : "#ff98001a",
-                      color: category === "For Rent" ? "#25b579" : "#ff9800",
+                        item?.category === "For Rent"
+                          ? "#25b5791a"
+                          : "#ff98001a",
+                      color:
+                        item?.category === "For Rent" ? "#25b579" : "#ff9800",
                     }}
                   >
-                    {category}
-                  </span> */}
+                    {item?.category}
+                  </span>
                   <i className="fa fa-heart"></i>
                 </div>
                 <h4>{item.pName}</h4>
