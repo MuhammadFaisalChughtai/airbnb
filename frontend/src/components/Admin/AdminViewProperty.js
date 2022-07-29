@@ -10,38 +10,15 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGF1c2VlZmd1bHphciIsImEiOiJjbDYyang3aWEwYzk1M2RtdjF5YjNnb3F4In0.R7vbWRTi7yvujhcrJrFXGw";
-function Detaill() {
+function AdminViewProperty() {
   const navigate = useNavigate();
-
-  const [viewPoint, setViewPoint] = useState({
-    width: "100%",
-    height: "100%",
-    longitude: 73.016914,
-    latitude: 33.565109,
-    zoom: 10,
-  });
-
   const { title } = useParams();
+
   const [data, setValue] = useState([]);
-  const [selectedPark, setSelectedPark] = useState(null);
-  const mapContainer = useRef(null);
-  const map = useRef(null);
+
   const [lng, setLng] = useState(73.038078);
   const [lat, setLat] = useState(50.601921);
-  const [zoom, setZoom] = useState(9);
 
-  useEffect(() => {
-    const listener = (e) => {
-      if (e.key === "Escape") {
-        setSelectedPark(null);
-      }
-    };
-    window.addEventListener("keydown", listener);
-
-    return () => {
-      window.removeEventListener("keydown", listener);
-    };
-  }, []);
   //   /all-properties
   useEffect(() => {
     async function getProperties() {
@@ -88,7 +65,7 @@ function Detaill() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "x-auth-token": JSON.parse(localStorage?.getItem("token")),
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         };
         await axios.delete(
@@ -164,21 +141,18 @@ function Detaill() {
         <div className="detail__card m-1">
           <div className="detail__updatedelete__icon">
             <p>PKR {data.price}</p>
-            {data?.user?._id ===
-              JSON.parse(localStorage?.getItem("user"))?.id && (
-              <div className="detail__auth__icon">
-                <i
-                  className="fa-solid fa-trash-can"
-                  onClick={() => deleteNow(data._id)}
-                ></i>{" "}
-                <i
-                  className="fa-solid fa-pen-nib"
-                  onClick={() => {
-                    navigate("/update-property", { state: data });
-                  }}
-                ></i>
-              </div>
-            )}
+            <div className="detail__auth__icon">
+              <i
+                className="fa-solid fa-trash-can"
+                onClick={() => deleteNow(data._id)}
+              ></i>{" "}
+              <i
+                className="fa-solid fa-pen-nib"
+                onClick={() => {
+                  navigate("/update-property", { state: data });
+                }}
+              ></i>
+            </div>
           </div>
 
           <form ref={form} onSubmit={sendEmail}>
@@ -238,4 +212,4 @@ function Detaill() {
   );
 }
 
-export default Detaill;
+export default AdminViewProperty;

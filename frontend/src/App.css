@@ -381,7 +381,28 @@ img {
     height: 25px;
     border-radius: 50%;
     border:1px solid gray;
-    background-color:yellow;
+    background-color:rgb(255, 0, 0);
+}
+.mapboxgl-popup-close-button{
+  color: black;
+    /* width: 20px; */
+    /* height: 20px; */
+    padding: 10px;
+    font-size: 25px;
+    outline: none;
+}
+.detail__buynow{
+  display: block;
+  background-color: #87CEFA;
+  color: #fff !important;
+  padding: 15px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+#map {
+  height: 320px;
 }
 @media screen and (max-width: 800px) {
   .detail__cardDetail{

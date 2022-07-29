@@ -4,18 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const auth = localStorage.getItem("user");
+  const admin = localStorage.getItem("admin");
   const navigate = useNavigate();
-  const [role, setRole] = useState("");
-  useEffect(() => {
-    setRole(JSON.parse(localStorage.getItem("user")).role);
-  }, []);
   const logout = () => {
     localStorage.clear();
     navigate("/login");
   };
   return (
     <div>
-      {auth ? (
+      {auth !== null || admin !== null ? (
         <ul className="nav-ul">
           <li>
             <img
@@ -27,27 +24,38 @@ const Nav = () => {
           <li>
             <Link to="/">Home </Link>
           </li>
-          <li>
-            <Link to="/aboutus"> About Us</Link>
-          </li>
+
           <li>
             <Link to="/properties">Properties</Link>
           </li>
-          {localStorage.getItem("token") && (
-            <li>
-              <Link to="/add-property">Add Property</Link>
-            </li>
+          <li>
+            <Link to="/add-property">Add Property</Link>
+          </li>
+          {auth !== null && (
+            <>
+              <li>
+                <Link to="/my-properties">My Properties</Link>
+              </li>
+              <li>
+                <Link to="/pricing">Pricing</Link>
+              </li>
+              <li>
+                <Link to="/aboutus"> About Us</Link>
+              </li>
+              <li>
+                <Link to="/contactus">contact us</Link>
+              </li>
+            </>
           )}
-          <li>
-            <Link to="/pricing">Pricing</Link>
-          </li>
-          <li>
-            <Link to="/contactus">contact us</Link>
-          </li>
+
           <ul className="nav-ul nav-right">
+            {auth === null && (
+              <li style={{ fontWeight: "600" }}>Admin Panal</li>
+            )}
             <li>
               <Link onClick={logout} to="/signup">
-                Logout ({JSON.parse(auth).name})
+                Logout
+                {auth !== null ? JSON.parse(auth).name : JSON.parse(admin).name}
               </Link>{" "}
             </li>
           </ul>
@@ -59,6 +67,9 @@ const Nav = () => {
           </li>
           <li>
             <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/admin-login">Admin Login</Link>
           </li>
         </ul>
       )}

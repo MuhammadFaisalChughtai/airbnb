@@ -109,6 +109,25 @@ router.post("/all-properties", async (req, res) => {
     });
   }
 });
+router.post("/my-properties", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const property = await Property.find({ user: id })
+      .sort({ date: -1 })
+      .populate("user", ["name", "email"]);
+    // .limit(req.body.limit)
+    // .skip(req.body.skip);
+
+    res.json({ property, totalPost: property.length });
+  } catch (err) {
+    res.status(500).json({
+      error: {
+        msg: "Server Error",
+      },
+    });
+  }
+});
 router.post("/specific-property", async (req, res) => {
   try {
     const type = req.body.value;
