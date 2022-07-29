@@ -39,10 +39,7 @@ function App() {
             <Route path="/logout" element={<h1>Logout</h1>} />
             <Route path="/show-property/:title" element={<Detaill />} />
             <Route path="/search" element={<Search />} />
-            <Route
-              path="/update-property/:{data}"
-              element={<UpdateProperty />}
-            />
+            <Route path="/update-property" element={<UpdateProperty />} />
           </Route>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />

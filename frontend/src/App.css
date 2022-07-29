@@ -357,6 +357,32 @@ img {
     width: 20px;
     height: 20px;
   }
+  .sidebar__map {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+    }
+    .mapboxgl-marker {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border:1px solid gray;
+      background-color:lightblue;
+  }
+  .mapboxgl-marker-REMOVETHIS {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border:1px solid gray;
+    background-color:yellow;
+}
 @media screen and (max-width: 800px) {
   .detail__cardDetail{
     flex-direction: column;

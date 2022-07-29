@@ -6,7 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import emailjs from "@emailjs/browser";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 
+mapboxgl.accessToken =
+  "pk.eyJ1IjoidGF1c2VlZmd1bHphciIsImEiOiJjbDYyang3aWEwYzk1M2RtdjF5YjNnb3F4In0.R7vbWRTi7yvujhcrJrFXGw";
 function Detaill() {
   const navigate = useNavigate();
 
@@ -21,6 +24,11 @@ function Detaill() {
   const { title } = useParams();
   const [data, setValue] = useState([]);
   const [selectedPark, setSelectedPark] = useState(null);
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(73.038078);
+  const [lat, setLat] = useState(33.601921);
+  const [zoom, setZoom] = useState(9);
 
   useEffect(() => {
     const listener = (e) => {
@@ -74,6 +82,7 @@ function Detaill() {
           config
         );
         toast.success("Property Deleted Successfully, Redirecting...");
+
         setTimeout(() => {
           navigate("/");
         }, 3000);
@@ -105,18 +114,70 @@ function Detaill() {
         }
       );
   };
+  useEffect(() => {
+    async function runMap() {
+      data !== null &&
+        data !== undefined &&
+        data !== "" &&
+        setLat(data.latitude);
+      data !== null &&
+        data !== undefined &&
+        data !== "" &&
+        setLng(data.longitude);
+      console.log(lat, lng);
+      if (map.current) return; // initialize map only once
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [lng, lat],
+        zoom: zoom,
+      });
+    }
+    runMap();
+  }, [data]);
+  useEffect(() => {
+    if (!map.current) return; // wait for map to initialize
+    map.current.on("move", () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(5));
+    });
+  });
+  useEffect(() => {
+    // async function runMap() {
+    console.log("working");
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Marker({
+      color: "#FF0000",
+      draggable: true,
+    })
+      .setLngLat([lng, lat])
+      .addTo(map);
+    // }
+    // runMap();
+  });
   return (
     <div className="container py-3">
       <ToastContainer />
-
       <h1>{data.pName}</h1>
       <p>{data.location}</p>
+      <span
+        className="p-1"
+        style={{
+          background: data?.category === "For Rent" ? "#25b5791a" : "#ff98001a",
+          color: data?.category === "For Rent" ? "#25b579" : "#ff9800",
+        }}
+      >
+        {data?.category}
+      </span>
       <div className="detail__cardDetail py-2">
         <img src={data.cover} alt="" className="detail__image m-1" />
+
         <div className="detail__card m-1">
           <div className="detail__updatedelete__icon">
-            <p>{data.price}</p>
-            {data.user === JSON.parse(localStorage.getItem("user")).id && (
+            <p>PKR {data.price}</p>
+            {data?.user?._id ===
+              JSON.parse(localStorage.getItem("user")).id && (
               <div className="detail__auth__icon">
                 <i
                   className="fa-solid fa-trash-can"
@@ -125,7 +186,7 @@ function Detaill() {
                 <i
                   className="fa-solid fa-pen-nib"
                   onClick={() => {
-                    navigate(`/update-property/${data}`);
+                    navigate("/update-property", { state: data });
                   }}
                 ></i>
               </div>
@@ -172,10 +233,12 @@ function Detaill() {
           </form>
         </div>
       </div>
+      <p>{data.specification}</p>
+
       <div className="detail__map py-3">
         <h2>Location & Nearby</h2>
         <div style={{ display: "block", minWidth: "600px", height: "600px" }}>
-          <ReactMapGL
+          {/* <ReactMapGL
             {...viewPoint}
             mapStyle="mapbox://styles/mapbox/streets-v10"
             // mapStyle="mapbox://styles/leighhalliday/cjufmjn1r2kic1fl9wxg7u1l4"
@@ -184,7 +247,7 @@ function Detaill() {
               setViewPoint(viewport);
             }}
           >
-            <Marker
+            {/* <Marker
               // key={park.properties.PARK_ID}
               latitude={data?.latitude}
               longitude={data?.longitude}
@@ -201,8 +264,8 @@ function Detaill() {
                   alt="Skate Park Icon"
                 />
               </button>
-            </Marker>
-            {/* {selectedPark ? (
+            </Marker> */}
+          {/* {selectedPark ? (
               <Popup
                 latitude={data?.latitude}
                 longitude={data?.longitude}
@@ -216,7 +279,15 @@ function Detaill() {
                 </div>
               </Popup>
             ) : null} */}
-          </ReactMapGL>
+          {/* </ReactMapGL>  */}
+          {data !== null && data !== undefined && data !== "" && (
+            <div>
+              <div className="sidebar__map">
+                Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+              </div>
+              <div ref={mapContainer} className="map-container" />
+            </div>
+          )}
         </div>
       </div>
     </div>

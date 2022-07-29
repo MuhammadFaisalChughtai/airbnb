@@ -41,6 +41,38 @@ router.post(
     }
   }
 );
+router.put("/update-post", [upload.single("image"), auth], async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      res.status(404).json("user not found");
+    }
+    const UpdateProperty = {
+      name: user.name,
+      user: req.user.id,
+      pName: req.body.pName,
+      cover: req.body.cover,
+      location: req.body.location,
+      city: req.body.city,
+      price: req.body.price,
+      type: req.body.type,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      category: req.body.category,
+      priceRange: req.body.priceRange,
+      specification: req.body.specification,
+    };
+    const id = req.body._id;
+    console.log(id);
+    let property = await Property.findByIdAndUpdate(id, UpdateProperty, {
+      new: true,
+    });
+    res.json(property);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 router.post("/upload-photo", upload.single("img"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
@@ -118,7 +150,10 @@ router.post("/range-properties", async (req, res) => {
 router.post("/view-property", async (req, res) => {
   try {
     const pName = req.body.value;
-    const property = await Property.findOne({ pName });
+    const property = await Property.findOne({ pName }).populate("user", [
+      "name",
+      "email",
+    ]);
     res.json({ property });
   } catch (err) {
     res.status(500).json({

@@ -110,7 +110,7 @@ function AddProperty() {
       error.priceRange = "Price Range is required!!!";
     }
     if (!value.specification) {
-      error.priceRange = "Price Range is required!!!";
+      error.specification = "Specification is required!!!";
     }
     return error;
   };
@@ -142,7 +142,7 @@ function AddProperty() {
   };
   return (
     <div className="register">
-    <ToastContainer />
+      <ToastContainer />
       <h1>Add Property</h1>
       {/* <label>Name</label> */}
       <div>

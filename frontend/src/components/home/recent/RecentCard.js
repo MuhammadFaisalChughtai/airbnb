@@ -58,7 +58,6 @@ const RecentCard = () => {
                   >
                     {item?.category}
                   </span>
-                  <i className="fa fa-heart"></i>
                 </div>
                 <h4>{item.pName}</h4>
                 <p>
