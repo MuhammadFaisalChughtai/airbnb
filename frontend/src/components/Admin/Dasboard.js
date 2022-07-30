@@ -18,6 +18,9 @@ const Dasboard = () => {
       navigate("/");
     }
   }, [navigate]);
+  // useEffect(() => {
+  //   window.location.reload();
+  // }, []);
   useEffect(() => {
     async function getProperties() {
       try {

@@ -39,7 +39,12 @@ const Login = () => {
         );
         localStorage.setItem("token", JSON.stringify(results.data.token));
         localStorage.setItem("user", JSON.stringify(results.data.data));
-        navigate("/");
+        if (results.data.data.role === "admin") {
+          navigate("/dashboard");
+          window.location.reload();
+        } else {
+          navigate("/");
+        }
       } catch (err) {
         toast.error(err.response.data.errors[0].msg);
       }
