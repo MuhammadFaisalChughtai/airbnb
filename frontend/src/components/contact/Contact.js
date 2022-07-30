@@ -13,8 +13,8 @@ const Contact = () => {
           cover={img}
         />
         <div className="container">
-          <form className="shadow">
-            <h4>
+          <form className="">
+            <h4 className="contact__heading">
               Fillup The Form <br />{" "}
             </h4>
 

@@ -13,53 +13,49 @@ const Nav = () => {
   return (
     <div>
       {auth !== null || admin !== null ? (
-        <ul className="nav-ul">
-          <li>
-            <img
-              alt="logo"
-              className="img1"
-              src="https://play-lh.googleusercontent.com/dndY2DwNIKV9cwyMWW3sT6lVUYXtFyJrkeRXZFvSlMmdCUPQsz_2Z0r7-5eIxD3ebqU"
-            />
-          </li>
-          <li>
-            <Link to="/">Home </Link>
-          </li>
+        <div className="nav__single">
+          <ul className="nav-ul">
+            <li>
+              <img
+                alt="logo"
+                className="img1"
+                src="https://play-lh.googleusercontent.com/dndY2DwNIKV9cwyMWW3sT6lVUYXtFyJrkeRXZFvSlMmdCUPQsz_2Z0r7-5eIxD3ebqU"
+              />
+            </li>
+            <li>
+              <Link to="/">Home </Link>
+            </li>
 
-          <li>
-            <Link to="/properties">Properties</Link>
-          </li>
-          <li>
-            <Link to="/add-property">Add Property</Link>
-          </li>
-          {auth !== null && (
-            <>
-              <li>
-                <Link to="/my-properties">My Properties</Link>
-              </li>
-              <li>
-                <Link to="/pricing">Pricing</Link>
-              </li>
-              <li>
-                <Link to="/aboutus"> About Us</Link>
-              </li>
-              <li>
-                <Link to="/contactus">contact us</Link>
-              </li>
-            </>
-          )}
+            <li>
+              <Link to="/properties">Properties</Link>
+            </li>
+            <li>
+              <Link to="/add-property">Add Property</Link>
+            </li>
+            <li>
+              <Link to="/my-properties">My Properties</Link>
+            </li>
+            <li>
+              <Link to="/pricing">Pricing</Link>
+            </li>
+            <li>
+              <Link to="/aboutus"> About Us</Link>
+            </li>
+            <li>
+              <Link to="/contactus">contact us</Link>
+            </li>
+          </ul>
 
-          <ul className="nav-ul nav-right">
+          <ul className="nav__logout">
             {auth === null && (
               <li style={{ fontWeight: "600" }}>Admin Panal</li>
             )}
-            <li>
-              <Link onClick={logout} to="/signup">
-                Logout
-                {auth !== null ? JSON.parse(auth).name : JSON.parse(admin).name}
-              </Link>{" "}
-            </li>
+            <Link onClick={logout} to="/signup">
+              Logout
+              {auth !== null ? JSON.parse(auth).name : JSON.parse(admin).name}
+            </Link>{" "}
           </ul>
-        </ul>
+        </div>
       ) : (
         <ul className="nav-ul nav-right">
           <li>
@@ -72,8 +68,9 @@ const Nav = () => {
             <Link to="/admin-login">Admin Login</Link>
           </li>
         </ul>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

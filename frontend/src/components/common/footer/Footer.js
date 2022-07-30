@@ -5,7 +5,7 @@ import "./footer.css";
 const Footer = () => {
   return (
     <>
-      {localStorage.getItem("user") !== null && (
+      {/* {localStorage.getItem("user") !== null && ( */}
         <>
           <section className="footerContact">
             <div className="container">
@@ -46,7 +46,7 @@ const Footer = () => {
             </div>
           </footer>
         </>
-      )}
+      {/* )} */}
 
       <div className="legal">
         <span>© 2022 RentPay. Designd By Tauseef Gulzar.</span>

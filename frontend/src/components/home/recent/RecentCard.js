@@ -32,6 +32,13 @@ const RecentCard = () => {
     });
     return results.join(" ");
   }
+  function trucncate(str, size) {
+    if (str.length > size) {
+      return str.slice(0, 30) + "..."
+    } else {
+      return str
+    }
+  }
   return (
     <>
       <div className="content grid3 mtop">
@@ -59,9 +66,9 @@ const RecentCard = () => {
                     {item?.category}
                   </span>
                 </div>
-                <h4>{item.pName}</h4>
+                <h4>{trucncate(item.pName, 30)}</h4>
                 <p>
-                  <i icon="fa-solid fa-location-dot" /> {item.location}
+                  <i icon="fa-solid fa-location-dot" /> {trucncate(item.location, 30)}
                 </p>
               </div>
               <div className="button flex">
