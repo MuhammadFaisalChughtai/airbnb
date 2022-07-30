@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
 }
 
 a {
@@ -20,7 +21,6 @@ a {
   color: white;
   padding: 5px;
   text-decoration: navajowhite;
-
 }
 
 .nav-ul {
@@ -32,6 +32,12 @@ a {
   /* border: 1px solid; */
   /* text-align: left; */
   margin: 10px;
+}
+.nav__logout li {
+  font-size: 18px;
+}
+.nav__logout i{
+  font-size: 23px;
 }
 
 .nav__single {
@@ -48,14 +54,16 @@ a {
   width: 100%;
   background-color: lightskyblue;
 }
+.bg{
+    background-color: lightskyblue;
 
+}
 .register {
   margin-left: 30%;
 }
 
 .login {
   margin-left: 30%;
-
 }
 
 .reg__err {
@@ -65,7 +73,6 @@ a {
 .reg__outline {
   /* border: red !important; */
   border: 1px solid red !important;
-
 }
 
 .inputBox {
@@ -89,7 +96,6 @@ a {
   text-align: left;
   margin-top: auto;
   padding-left: 100%;
-
 }
 
 body {
@@ -106,7 +112,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 a {
@@ -305,13 +310,12 @@ img {
 
 .detail__cardDetail {
   display: flex;
-
 }
 
 .detail__card {
   height: 500px;
   /* width: 600px; */
-  border: 2px solid #87CEFA;
+  border: 2px solid #87cefa;
   padding: 10px;
 }
 
@@ -355,8 +359,8 @@ img {
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .slider:hover {
@@ -368,21 +372,21 @@ img {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #87CEFA;
+  background: #87cefa;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
-  background: #87CEFA;
+  background: #87cefa;
   cursor: pointer;
 }
 
 .search__button {
   border-radius: 0 5px 5px 0;
   padding: 38px 57px !important;
-  background: #87CEFA !important;
+  background: #87cefa !important;
   border: none;
   color: #fff;
   cursor: pointer;
@@ -417,7 +421,6 @@ img {
 
 .detail__map h2 {
   text-align: left;
-
 }
 
 .marker-btn {
@@ -471,7 +474,7 @@ img {
 
 .detail__buynow {
   display: block;
-  background-color: #87CEFA;
+  background-color: #87cefa;
   color: #fff !important;
   padding: 15px;
   font-weight: 600;
@@ -491,7 +494,34 @@ img {
 .mapboxgl-ctrl-attrib-inner {
   display: none !important;
 }
+.dashboard__container{
+  display: flex;
+  /* width: 70%; */
+}
+.recent{
+  flex: 6;
+}
+.container__sidebar{
+  /* width: 30%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  border-top: 1px solid rgba(0, 0, 0, 0.123);
+  border-right: 1px solid rgba(0, 0, 0, 0.123);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.123);
+  /* height: 100vh; */
 
+}
+.sidebar__items p{
+  padding: 10px 20px;
+  margin-bottom: 0 !important;
+}
+.sidebar__logout p{
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  margin-bottom: 750px;
+}
 @media screen and (max-width: 800px) {
   .detail__cardDetail {
     flex-direction: column;
@@ -548,7 +578,6 @@ img {
 
 .login {
   margin-left: 30%;
-
 }
 
 .appButton {

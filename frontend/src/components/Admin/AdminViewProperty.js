@@ -68,8 +68,8 @@ function AdminViewProperty() {
             "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         };
-        await axios.delete(
-          `http://localhost:5000/api/property/delete-property/${id}`,
+        const result = await axios.delete(
+          `http://localhost:5000/api/property/delete-property-admin/${id}`,
           config
         );
         toast.success("Property Deleted Successfully, Redirecting...");
@@ -149,7 +149,7 @@ function AdminViewProperty() {
               <i
                 className="fa-solid fa-pen-nib"
                 onClick={() => {
-                  navigate("/update-property", { state: data });
+                  navigate("/update-property-admin", { state: data });
                 }}
               ></i>
             </div>

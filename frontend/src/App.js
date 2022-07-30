@@ -24,10 +24,13 @@ import AdminPrivate from "./components/AdminPrivate";
 import AdminLogin from "./components/Admin/AdminLogin";
 import Dasboard from "./components/Admin/Dasboard";
 import AdminViewProperty from "./components/Admin/AdminViewProperty";
+import AddPropertyAdmin from "./components/Admin/AddPropertyAdmin";
+import AdminUpdate from "./components/Admin/AdminUpdate";
 function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
+  // console.log(JSON.parse(localStorage.getItem("user")).role);
   return (
     <div className="App">
       <BrowserRouter>
@@ -47,25 +50,26 @@ function App() {
             <Route path="/update-property" element={<UpdateProperty />} />
             <Route path="/my-properties" element={<MyProperty />} />
           </Route>
-          <Route element={<AdminPrivate />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/aboutus" element={<About />} />
-            <Route path="/properties" element={<Services />} />
-            <Route exact path="/pricing" component={<Pricing />} />
-            <Route path="/contactus" element={<Contact />} />
-            <Route path="/add-property" element={<AddProperty />} />
-            <Route path="/properties/:type" element={<ShowProperty />} />
-            <Route path="/logout" element={<h1>Logout</h1>} />
-            <Route path="/show-property/:title" element={<Detaill />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/update-property" element={<UpdateProperty />} />
-            <Route path="/my-properties" element={<MyProperty />} />
-            <Route path="/dashboard" element={<Dasboard />} />
-            <Route
-              path="/view-property-admin/:title"
-              element={<AdminViewProperty />}
-            />
-          </Route>
+          {localStorage.getItem("user") &&
+            JSON.parse(localStorage.getItem("user"))?.role === "admin" && (
+              <>
+                <Route path="/dashboard" element={<Dasboard />} />
+                <Route
+                  path="/add-propert-admin"
+                  element={<AddPropertyAdmin />}
+                />
+                <Route
+                  path="/view-property-admin/:title"
+                  element={<AdminViewProperty />}
+                />
+                <Route path="/my-properties" element={<MyProperty />} />
+                <Route
+                  path="/update-property-admin"
+                  element={<AdminUpdate />}
+                />
+              </>
+            )}
+
           <Route path="/admin-register" element={<AdminRegister />} />
           <Route path="/admin-login" element={<AdminLogin />} />
 

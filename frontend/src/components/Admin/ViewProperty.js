@@ -1,42 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import Heading from "./common/Heading";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Heading from "../common/Heading";
-import Sidebar from "../Navbar/Sidebar";
-import { useNavigate } from "react-router-dom";
-
-const Dasboard = () => {
+function ViewProperty() {
+  const { type } = useParams();
   const [values, setValues] = useState([]);
   //   /all-properties
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    let auth = localStorage?.getItem("user");
-    if (JSON.parse(auth)?.role === "admin") {
-      navigate("/dashboard");
-    } else {
-      navigate("/");
-    }
-  }, [navigate]);
   useEffect(() => {
     async function getProperties() {
       try {
+        let value = capitalize(type);
         const config = {
           headers: {
             "Content-Type": "application/json",
           },
         };
         const results = await axios.post(
-          "http://localhost:5000/api/property/all-properties",
+          "http://localhost:5000/api/property/specific-property",
+          { value },
           config
         );
+        console.log(results.data.property);
         setValues(results.data.property);
       } catch (err) {
         console.log(err);
       }
     }
     getProperties();
-  }, []);
+  }, [type]);
   function capitalize(str) {
     let results = [];
     str.split("-").forEach((element) => {
@@ -47,16 +38,18 @@ const Dasboard = () => {
     return results.join(" ");
   }
   return (
-    <div className="dashboard__container">
-      <Sidebar />
-
+    <div className="container">
       <section className="recent padding">
         <div className="container">
+          <Heading
+            title="All Properties"
+            subtitle="Lorem ipsum dolor sit amet, consectetur  adipiscing elit, sed do eiusmod tempor  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
+          />
           {/* <RecentCard data={data} /> */}
           <div className="content grid3 mtop">
             {values?.map((item) => (
               <Link
-                to={`/view-property-admin/${item.pName.split(" ").join("-")}`}
+                to={`/show-property/${item.pName.split(" ").join("-")}`}
                 key={item._id}
               >
                 <div className="box shadow" key={item.id}>
@@ -65,20 +58,16 @@ const Dasboard = () => {
                   </div>
                   <div className="text">
                     <div className="category flex">
-                      <span
-                        style={{
-                          background:
-                            item.category === "For Rent"
-                              ? "#25b5791a"
-                              : "#ff98001a",
-                          color:
-                            item.category === "For Rent"
-                              ? "#25b579"
-                              : "#ff9800",
-                        }}
-                      >
-                        {item.category}
-                      </span>
+                      {/* <span
+                    style={{
+                      background:
+                        category === "For Rent" ? "#25b5791a" : "#ff98001a",
+                      color: category === "For Rent" ? "#25b579" : "#ff9800",
+                    }}
+                  >
+                    {category}
+                  </span> */}
+                      <i className="fa fa-heart"></i>
                     </div>
                     <h4>{item.pName}</h4>
                     <p>
@@ -89,7 +78,7 @@ const Dasboard = () => {
                     <div>
                       <button className="btn2">{item.price}</button>
                     </div>
-                    {/* <span>{capitalize(type)}</span> */}
+                    <span>{capitalize(type)}</span>
                   </div>
                 </div>
               </Link>
@@ -99,6 +88,6 @@ const Dasboard = () => {
       </section>
     </div>
   );
-};
+}
 
-export default Dasboard;
+export default ViewProperty;

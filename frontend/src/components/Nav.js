@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
 const Nav = () => {
-  const auth = localStorage.getItem("user");
-  const admin = localStorage.getItem("admin");
+  let auth = localStorage?.getItem("user");
   const navigate = useNavigate();
   const logout = () => {
     localStorage.clear();
@@ -12,7 +10,7 @@ const Nav = () => {
   };
   return (
     <div>
-      {auth !== null || admin !== null ? (
+      {JSON.parse(auth)?.role === "user" ? (
         <div className="nav__single">
           <ul className="nav-ul">
             <li>
@@ -46,31 +44,62 @@ const Nav = () => {
             </li>
           </ul>
 
-          <ul className="nav__logout">
-            {auth === null && (
-              <li style={{ fontWeight: "600" }}>Admin Panal</li>
-            )}
-            <Link onClick={logout} to="/signup">
-              Logout
-              {auth !== null ? JSON.parse(auth).name : JSON.parse(admin).name}
-            </Link>{" "}
+          <ul className="nav__logout" style={{ display: "flex" }}>
+            {/* <li>
+              <i class="fa-solid fa-circle-user"></i> {JSON.parse(auth)?.name}
+            </li>{" "} */}
+            <li style={{ marginLeft: "10px" }}>
+              <Link onClick={logout} to="/signup">
+                Logout
+              </Link>
+            </li>
           </ul>
         </div>
       ) : (
-        <ul className="nav-ul nav-right">
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/admin-login">Admin Login</Link>
-          </li>
-        </ul>
-      )
-      }
-    </div >
+        <>
+          {JSON.parse(auth)?.role === "admin" ? (
+            <div className="nav__single">
+              <ul className="nav-ul">
+                <li>
+                  <img
+                    alt="logo"
+                    className="img1"
+                    src="https://play-lh.googleusercontent.com/dndY2DwNIKV9cwyMWW3sT6lVUYXtFyJrkeRXZFvSlMmdCUPQsz_2Z0r7-5eIxD3ebqU"
+                  />
+                </li>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+              </ul>
+
+              <ul className="nav__logout">
+                <li>
+                  <i class="fa-solid fa-circle-user"></i>{" "}
+                  {JSON.parse(auth)?.name}
+                </li>
+                {/* <li>
+                  <Link onClick={logout} to="/signup">
+                    Logout
+                  </Link>
+                </li> */}
+              </ul>
+            </div>
+          ) : (
+            <ul className="nav-ul nav-right bg">
+              <li>
+                <Link to="/signup">Signup</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              {/* <li>
+                <Link to="/admin-login">Admin Login</Link>
+              </li> */}
+            </ul>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 

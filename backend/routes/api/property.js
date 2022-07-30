@@ -9,6 +9,8 @@ const User = require("../../models/User");
 const Image = require("../../models/Image");
 const path = require("path");
 const checkObjectId = require("../../middleware/checkObjectId");
+const AdminAuth = require("../../middleware/AdminAuth");
+const Admin = require("../../models/Admin");
 
 // const checkObjectId = require("../../middlew`a`re/checkObjectId");
 router.post(
@@ -41,6 +43,7 @@ router.post(
     }
   }
 );
+
 router.put("/update-post", [upload.single("image"), auth], async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -50,6 +53,32 @@ router.put("/update-post", [upload.single("image"), auth], async (req, res) => {
     const UpdateProperty = {
       name: user.name,
       user: req.user.id,
+      pName: req.body.pName,
+      cover: req.body.cover,
+      location: req.body.location,
+      city: req.body.city,
+      price: req.body.price,
+      type: req.body.type,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      category: req.body.category,
+      priceRange: req.body.priceRange,
+      specification: req.body.specification,
+    };
+    const id = req.body._id;
+    console.log(id);
+    let property = await Property.findByIdAndUpdate(id, UpdateProperty, {
+      new: true,
+    });
+    res.json(property);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+router.put("/update-post-admin", upload.single("image"), async (req, res) => {
+  try {
+    const UpdateProperty = {
       pName: req.body.pName,
       cover: req.body.cover,
       location: req.body.location,
@@ -116,8 +145,6 @@ router.post("/my-properties", async (req, res) => {
     const property = await Property.find({ user: id })
       .sort({ date: -1 })
       .populate("user", ["name", "email"]);
-    // .limit(req.body.limit)
-    // .skip(req.body.skip);
 
     res.json({ property, totalPost: property.length });
   } catch (err) {
@@ -154,8 +181,6 @@ router.post("/range-properties", async (req, res) => {
     const property = await Property.find({ city, type })
       .sort({ date: -1 })
       .populate("user", ["name", "email"]);
-    // .limit(req.body.limit)
-    // .skip(req.body.skip);
 
     res.json({ property });
   } catch (err) {
@@ -208,4 +233,49 @@ router.delete(
     }
   }
 );
+router.delete("/delete-property-admin/:id", async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id);
+
+    if (!property) {
+      return res.status(404).json({ msg: "property not found" });
+    }
+
+    await property.remove();
+
+    res.json({ msg: "property removed" });
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send("Server Error");
+  }
+});
+// Admin Side
+router.post("/create-post-admin", async (req, res) => {
+  try {
+    console.log(req.user.id);
+    const user = await Property.findById(req.user.id).select("-password");
+    const newProperty = new Property({
+      name: user.name,
+      user: req.user.id,
+      pName: req.body.pName,
+      cover: req.body.cover,
+      location: req.body.location,
+      city: req.body.city,
+      price: req.body.price,
+      type: req.body.type,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      category: req.body.category,
+      priceRange: req.body.priceRange,
+      specification: req.body.specification,
+    });
+
+    const property = await newProperty.save();
+    res.json(property);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 module.exports = router;

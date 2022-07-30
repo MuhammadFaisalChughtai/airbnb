@@ -33,7 +33,7 @@ const AdminLogin = () => {
           },
         };
         const results = await axios.post(
-          "http://localhost:5000/api/auth/login",
+          "http://localhost:5000/api/admin/login",
           formData,
           config
         );
