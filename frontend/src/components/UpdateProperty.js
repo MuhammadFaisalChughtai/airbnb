@@ -236,6 +236,9 @@ function UpdateProperty() {
           <option name="category" value="For Sale">
             For Sale
           </option>
+          <option name="category" value="Sold">
+            Sold
+          </option>
         </select>
         <span className="reg__err">{err.category}</span>
       </div>

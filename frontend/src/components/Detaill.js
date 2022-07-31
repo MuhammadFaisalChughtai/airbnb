@@ -217,9 +217,14 @@ function Detaill() {
             <button className="detail__buynow" type="submit">
               Send Email
             </button>
-            <Link className="detail__buynow" to="pay-now">
+            <button
+              className="detail__buynow"
+              onClick={() => {
+                navigate("/pay-now", { state: data });
+              }}
+            >
               buy Now
-            </Link>
+            </button>
           </form>
         </div>
       </div>

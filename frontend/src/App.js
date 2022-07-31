@@ -28,7 +28,8 @@ import AddPropertyAdmin from "./components/Admin/AddPropertyAdmin";
 import AdminUpdate from "./components/Admin/AdminUpdate";
 import ForgetPassword from "./components/Login/ForgetPassword";
 import NewPassword from "./components/Login/NewPassword";
-import Stripe from "./components/Stripe/Stripe.js";
+import Stripe from "./components/Stripe/PaymentForm.js";
+import StripeContainer from "./components/Stripe/StripeContainer";
 function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -52,7 +53,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/update-property" element={<UpdateProperty />} />
             <Route path="/my-properties" element={<MyProperty />} />
-            {/* <Route path="/pay-now" element={<Stripe />} /> */}
+            <Route path="/pay-now" element={<StripeContainer />} />
           </Route>
           {localStorage.getItem("user") &&
             JSON.parse(localStorage.getItem("user"))?.role === "admin" && (

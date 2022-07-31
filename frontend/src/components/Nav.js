@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import logo from "../assest/logo-light.png";
 const Nav = () => {
   let auth = localStorage?.getItem("user");
   const navigate = useNavigate();
@@ -14,11 +14,7 @@ const Nav = () => {
         <div className="nav__single">
           <ul className="nav-ul">
             <li>
-              <img
-                alt="logo"
-                className="img1"
-                src="https://play-lh.googleusercontent.com/dndY2DwNIKV9cwyMWW3sT6lVUYXtFyJrkeRXZFvSlMmdCUPQsz_2Z0r7-5eIxD3ebqU"
-              />
+              <img alt="logo" className="img1" src={logo} width="150" />
             </li>
             <li>
               <Link to="/">Home </Link>

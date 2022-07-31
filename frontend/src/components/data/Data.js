@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 export const nav = [
   {
     text: "home",
@@ -24,7 +24,7 @@ export const nav = [
     text: "contact",
     path: "/contact",
   },
-]
+];
 export const featured = [
   {
     cover: "../images/hero/h1.png",
@@ -51,7 +51,7 @@ export const featured = [
     name: "Villa & Condo",
     total: "8 Property",
   },
-]
+];
 export const list = [
   {
     id: 1,
@@ -107,29 +107,29 @@ export const list = [
     price: "Rs 10k",
     type: "Apartment",
   },
-]
+];
 export const awards = [
   {
-    icon: <i class='fa-solid fa-trophy'></i>,
+    icon: <i class="fa-solid fa-trophy"></i>,
     num: "32 M	",
     name: "Blue Burmin Award",
   },
   {
-    icon: <i class='fa-solid fa-briefcase'></i>,
+    icon: <i class="fa-solid fa-briefcase"></i>,
     num: "43 M",
     name: "Mimo X11 Award",
   },
   {
-    icon: <i class='fa-solid fa-lightbulb'></i>,
+    icon: <i class="fa-solid fa-lightbulb"></i>,
     num: "51 M",
     name: "Australian UGC Award",
   },
   {
-    icon: <i class='fa-solid fa-heart'></i>,
+    icon: <i class="fa-solid fa-heart"></i>,
     num: "42 M",
     name: "IITCA Green Award",
   },
-]
+];
 export const location = [
   {
     id: 1,
@@ -179,28 +179,43 @@ export const location = [
     Offices: "2 Offices",
     cover: "./images/location/city-6.png",
   },
-]
+];
 export const team = [
   {
     // list: "50",
     cover: "../images/customer/team-1.jpg",
     address: "Web Developer",
     name: "Qammar Abbas",
-    icon: [<i class='fa-brands fa-facebook-f'></i>, <i class='fa-brands fa-linkedin'></i>, <i class='fa-brands fa-twitter'></i>, <i class='fa-brands fa-instagram'></i>],
+    icon: [
+      <i class="fa-brands fa-facebook-f"></i>,
+      <i class="fa-brands fa-linkedin"></i>,
+      <i class="fa-brands fa-twitter"></i>,
+      <i class="fa-brands fa-instagram"></i>,
+    ],
   },
   {
     // list: "70",
     cover: "../images/customer/team-2.jpg",
     address: "Superviser",
     name: "Dr. Tariq Sadad",
-    icon: [<i class='fa-brands fa-facebook-f'></i>, <i class='fa-brands fa-linkedin'></i>, <i class='fa-brands fa-twitter'></i>, <i class='fa-brands fa-instagram'></i>],
+    icon: [
+      <i class="fa-brands fa-facebook-f"></i>,
+      <i class="fa-brands fa-linkedin"></i>,
+      <i class="fa-brands fa-twitter"></i>,
+      <i class="fa-brands fa-instagram"></i>,
+    ],
   },
   {
     // list: "80",
     cover: "../images/customer/team-3.jpg",
     address: "Web Designer",
     name: "Tauseef Gulzar",
-    icon: [<i class='fa-brands fa-facebook-f'></i>, <i class='fa-brands fa-linkedin'></i>, <i class='fa-brands fa-twitter'></i>, <i class='fa-brands fa-instagram'></i>],
+    icon: [
+      <i class="fa-brands fa-facebook-f"></i>,
+      <i class="fa-brands fa-linkedin"></i>,
+      <i class="fa-brands fa-twitter"></i>,
+      <i class="fa-brands fa-instagram"></i>,
+    ],
   },
   // {
   //   list: "51",
@@ -223,7 +238,7 @@ export const team = [
   //   name: "Adam K. Jollio",
   //   icon: [<i class='fa-brands fa-facebook-f'></i>, <i class='fa-brands fa-linkedin'></i>, <i class='fa-brands fa-twitter'></i>, <i class='fa-brands fa-instagram'></i>],
   // },
-]
+];
 export const price = [
   {
     plan: "Basic",
@@ -231,19 +246,27 @@ export const price = [
     ptext: "per user, per month",
     list: [
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "99.5% Uptime Guarantee",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "120GB CDN Bandwidth",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "5GB Cloud Storage",
       },
-      { change: "color", icon: <i class='fa-solid fa-x'></i>, text: "Personal Help Support" },
-      { change: "color", icon: <i class='fa-solid fa-x'></i>, text: "Enterprise SLA" },
+      {
+        change: "color",
+        icon: <i class="fa-solid fa-x"></i>,
+        text: "Personal Help Support",
+      },
+      {
+        change: "color",
+        icon: <i class="fa-solid fa-x"></i>,
+        text: "Enterprise SLA",
+      },
     ],
   },
   {
@@ -253,24 +276,24 @@ export const price = [
     ptext: "per user, per month",
     list: [
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "99.5% Uptime Guarantee",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "150GB CDN Bandwidth",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "10GB Cloud Storage",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "Personal Help Support",
       },
       {
         change: "color",
-        icon: <i class='fa-solid fa-x'></i>,
+        icon: <i class="fa-solid fa-x"></i>,
         text: "Enterprise SLA",
       },
     ],
@@ -281,40 +304,48 @@ export const price = [
     ptext: "2 user, per month",
     list: [
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "100% Uptime Guarantee",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "200GB CDN Bandwidth",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "20GB Cloud Storage",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "Personal Help Support",
       },
       {
-        icon: <i class='fa-solid fa-check'></i>,
+        icon: <i class="fa-solid fa-check"></i>,
         text: "Enterprise SLA",
       },
     ],
   },
-  
-]
+];
 export const footer = [
   {
     title: "LAYOUTS",
-    text: [{ list: "Home Page" }, { list: "About Page" }, { list: "Service Page" }, { list: "Property Page" }, { list: "Contact Page" }, { list: "Single Blog" }],
+    text: [
+      { list: "Home", link: "/" },
+      { list: "Properties", link: "/properties" },
+      { list: "Add Property", link: "/add-property" },
+      { list: "My Properties", link: "/my-properties" },
+      { list: "Contact Us", link: "/contactus" },
+      { list: "About", link: "/aboutus" },
+    ],
   },
-  // {
-  //   title: "ALL SECTIONS",
-  //   text: [{ list: "Headers" }, { list: "Features" }, { list: "Attractive" }, { list: "Testimonials" }, { list: "Videos" }, { list: "Footers" }],
-  // },
-  // {
-  //   title: "COMPANY",
-  //   text: [{ list: "About" }, { list: "Blog" }, { list: "Pricing" }, { list: "Affiliate" }, { list: "Login" }, { list: "Changelog" }],
-  // },
-]
+];
+export const footer2 = [
+  {
+    title: "LAYOUTS",
+    text: [
+      { list: "Dashboard", link: "/dashboard" },
+      { list: "Add Property", link: "/add-propert-admin" },
+      { list: "Admin Properties", link: "/my-properties" },
+    ],
+  },
+];

@@ -7,7 +7,7 @@ import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("user");
+    const auth = JSON.parse(localStorage?.getItem("user"));
     if (auth) {
       navigate("/");
     }
