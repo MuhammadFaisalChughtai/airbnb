@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { footer, footer2 } from "../../data/Data";
 import "./footer.css";
@@ -10,19 +10,6 @@ const Footer = () => {
     <>
       {/* {localStorage.getItem("user") !== null && ( */}
       <>
-        <section className="footerContact">
-          <div className="container">
-            <div className="send flex">
-              <div className="text">
-                <h1>Do You Have Questions ?</h1>
-                <p>We'll help you to grow your career and growth.</p>
-              </div>
-              <a href="/contactus" className="btn5">
-                Contact Us Today
-              </a>
-            </div>
-          </div>
-        </section>
         <footer>
           <div className="container">
             <div className="box">

@@ -7,6 +7,7 @@ import Price from "./price/Price";
 import Recent from "./recent/Recent";
 import Team from "./team/Team";
 import Contact from "../contact/Contact";
+
 // import Footer from "../common/footer/Footer";
 import { useNavigate } from "react-router-dom";
 
