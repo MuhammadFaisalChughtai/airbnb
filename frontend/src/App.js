@@ -26,6 +26,9 @@ import Dasboard from "./components/Admin/Dasboard";
 import AdminViewProperty from "./components/Admin/AdminViewProperty";
 import AddPropertyAdmin from "./components/Admin/AddPropertyAdmin";
 import AdminUpdate from "./components/Admin/AdminUpdate";
+import ForgetPassword from "./components/Login/ForgetPassword";
+import NewPassword from "./components/Login/NewPassword";
+import Stripe from "./components/Stripe/Stripe.js";
 function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -49,6 +52,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/update-property" element={<UpdateProperty />} />
             <Route path="/my-properties" element={<MyProperty />} />
+            {/* <Route path="/pay-now" element={<Stripe />} /> */}
           </Route>
           {localStorage.getItem("user") &&
             JSON.parse(localStorage.getItem("user"))?.role === "admin" && (
@@ -72,9 +76,10 @@ function App() {
 
           <Route path="/admin-register" element={<AdminRegister />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/reset-password" element={<NewPassword />} />
         </Routes>
         <Footer />
       </BrowserRouter>

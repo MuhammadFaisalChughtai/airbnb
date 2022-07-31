@@ -522,6 +522,9 @@ img {
   margin-bottom: 20px;
   margin-bottom: 750px;
 }
+.login__forgetpassword{
+  color: #87cefa !important;
+}
 @media screen and (max-width: 800px) {
   .detail__cardDetail {
     flex-direction: column;

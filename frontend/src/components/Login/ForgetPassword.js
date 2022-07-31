@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const Login = () => {
+const ForgetPassword = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const auth = localStorage.getItem("user");
@@ -14,10 +14,9 @@ const Login = () => {
   }, [navigate]);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
   const [err, setErr] = useState({});
-  const { email, password } = formData;
+  const { email } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,19 +31,19 @@ const Login = () => {
             "Content-Type": "application/json",
           },
         };
-        const results = await axios.post(
-          "http://localhost:5000/api/auth/login",
+        const result = await axios.post(
+          "http://localhost:5000/api/auth/forget-password",
           formData,
           config
         );
-        localStorage.setItem("token", JSON.stringify(results.data.token));
-        localStorage.setItem("user", JSON.stringify(results.data.data));
-        if (results.data.data.role === "admin") {
-          navigate("/dashboard");
-          window.location.reload();
-        } else {
-          navigate("/");
-        }
+        // localStorage.setItem("token", JSON.stringify(results.data.token));
+        // localStorage.setItem("user", JSON.stringify(results.data.data));
+        // if (results.data.data.role === "admin") {
+        //   navigate("/dashboard");
+        //   window.location.reload();
+        // } else {
+        // }
+        navigate("/reset-password", { state: result.data });
       } catch (err) {
         toast.error(err.response.data.errors[0].msg);
       }
@@ -60,16 +59,13 @@ const Login = () => {
     } else if (!regularExpressionEmail.test(value.email)) {
       error.email = "You have entered an invalid email address!";
     }
-    if (!value.password) {
-      error.password = "password is required!!!";
-    }
+
     return error;
   };
   return (
     <div className="login">
-      <h1>Login </h1>
+      <h1>Forget Password</h1>
       <ToastContainer />
-
       <div>
         <input
           type="text"
@@ -81,35 +77,12 @@ const Login = () => {
         />
         <span className="reg__err">{err.email}</span>
       </div>
-      <div>
-        <input
-          type="password"
-          className={`inputBox ${err.password && "reg__outline"}`}
-          placeholder="Enter Password"
-          name="password"
-          onChange={(e) => onChange(e)}
-          value={password}
-        />
-        <span className="reg__err">{err.password}</span>
-      </div>
-      <div>
-        <p
-          style={{
-            fontWeight: "600",
-            width: "27%",
-            textAlign: "right",
-          }}
-        >
-          <Link className="login__forgetpassword" to="/forget-password">
-            Forget password
-          </Link>
-        </p>
-      </div>
+
       <button onClick={(e) => onSubmit(e)} className="appButton" type="button">
-        Login
+        Continue
       </button>
     </div>
   );
 };
 
-export default Login;
+export default ForgetPassword;

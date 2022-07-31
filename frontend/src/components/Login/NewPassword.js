@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const Login = () => {
+const NewPassword = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
@@ -13,11 +14,11 @@ const Login = () => {
     }
   }, [navigate]);
   const [formData, setFormData] = useState({
-    email: "",
     password: "",
+    cPassword: "",
   });
   const [err, setErr] = useState({});
-  const { email, password } = formData;
+  const { password, cPassword } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,24 +28,24 @@ const Login = () => {
     setErr(error);
     if (Object.keys(error).length === 0) {
       try {
+        const data = {
+          email: state.email,
+          password: password,
+        };
         const config = {
           headers: {
             "Content-Type": "application/json",
           },
         };
-        const results = await axios.post(
-          "http://localhost:5000/api/auth/login",
-          formData,
+        const results = await axios.put(
+          "http://localhost:5000/api/auth/new-password",
+          data,
           config
         );
-        localStorage.setItem("token", JSON.stringify(results.data.token));
-        localStorage.setItem("user", JSON.stringify(results.data.data));
-        if (results.data.data.role === "admin") {
-          navigate("/dashboard");
-          window.location.reload();
-        } else {
-          navigate("/");
-        }
+        toast.success(results.data.msg);
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } catch (err) {
         toast.error(err.response.data.errors[0].msg);
       }
@@ -52,35 +53,23 @@ const Login = () => {
   };
   const validation = (value) => {
     const error = {};
-    var regularExpressionEmail =
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var regularExpressionPassword = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
-    if (!value.email) {
-      error.email = "email is required!!!";
-    } else if (!regularExpressionEmail.test(value.email)) {
-      error.email = "You have entered an invalid email address!";
-    }
     if (!value.password) {
       error.password = "password is required!!!";
+    } else if (password !== cPassword) {
+      error.password = "password mismatch !!!";
+    } else if (!regularExpressionPassword.test(value.password)) {
+      error.password =
+        "password should contain atleast one number and one special character";
     }
     return error;
   };
   return (
     <div className="login">
-      <h1>Login </h1>
+      <h1>Reset Password </h1>
       <ToastContainer />
 
-      <div>
-        <input
-          type="text"
-          className={`inputBox ${err.password && "reg__outline"}`}
-          placeholder="Enter Email"
-          name="email"
-          onChange={(e) => onChange(e)}
-          value={email}
-        />
-        <span className="reg__err">{err.email}</span>
-      </div>
       <div>
         <input
           type="password"
@@ -93,18 +82,16 @@ const Login = () => {
         <span className="reg__err">{err.password}</span>
       </div>
       <div>
-        <p
-          style={{
-            fontWeight: "600",
-            width: "27%",
-            textAlign: "right",
-          }}
-        >
-          <Link className="login__forgetpassword" to="/forget-password">
-            Forget password
-          </Link>
-        </p>
+        <input
+          type="password"
+          className={`inputBox ${err.password && "reg__outline"}`}
+          placeholder="Confirm Password"
+          name="cPassword"
+          onChange={(e) => onChange(e)}
+          value={cPassword}
+        />
       </div>
+
       <button onClick={(e) => onSubmit(e)} className="appButton" type="button">
         Login
       </button>
@@ -112,4 +99,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default NewPassword;

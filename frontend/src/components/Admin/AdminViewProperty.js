@@ -192,9 +192,9 @@ function AdminViewProperty() {
             <button className="detail__buynow" type="submit">
               Send Email
             </button>
-            <Link className="detail__buynow" to="">
+            {/* <Link className="detail__buynow" to="">
               buy Now
-            </Link>
+            </Link> */}
           </form>
         </div>
       </div>
