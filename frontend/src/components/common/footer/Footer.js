@@ -17,7 +17,9 @@ const Footer = () => {
                 <h1>Do You Have Questions ?</h1>
                 <p>We'll help you to grow your career and growth.</p>
               </div>
-              <button className="btn5">Contact Us Today</button>
+              <a href="/contactus" className="btn5">
+                Contact Us Today
+              </a>
             </div>
           </div>
         </section>
@@ -37,15 +39,14 @@ const Footer = () => {
             </div>
             {JSON.parse(auth)?.role === "user" ? (
               <>
-                {" "}
                 {footer.map((val) => (
                   <div className="box">
                     <h3>{val.title}</h3>
                     <ul>
                       {val.text.map((items) => (
-                        <NavLink to={items?.link}>
+                        <a href={items?.link}>
                           <li> {items.list} </li>
-                        </NavLink>
+                        </a>
                       ))}
                     </ul>
                   </div>
@@ -58,7 +59,9 @@ const Footer = () => {
                     <h3>{val.title}</h3>
                     <ul>
                       {val.text.map((items) => (
-                        <li> {items.list} </li>
+                        <a href={items?.link}>
+                          <li> {items.list} </li>
+                        </a>
                       ))}
                     </ul>
                   </div>

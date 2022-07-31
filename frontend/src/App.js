@@ -33,7 +33,7 @@ import StripeContainer from "./components/Stripe/StripeContainer";
 function App() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+  });
   // console.log(JSON.parse(localStorage.getItem("user")).role);
   return (
     <div className="App">
