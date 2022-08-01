@@ -11,6 +11,7 @@ const path = require("path");
 const checkObjectId = require("../../middleware/checkObjectId");
 const AdminAuth = require("../../middleware/AdminAuth");
 const Admin = require("../../models/Admin");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 // const checkObjectId = require("../../middlew`a`re/checkObjectId");
 router.post(
@@ -250,6 +251,47 @@ router.delete("/delete-property-admin/:id", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+router.post("/buy-property", async (req, res) => {
+  let { amount, id, p_id } = req.body;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "USD",
+      description: "Rent Pay",
+      payment_method: id,
+      confirm: true,
+    });
+    if (payment) {
+      const UpdateProperty = {
+        pName: req.body.pName,
+        cover: req.body.cover,
+        location: req.body.location,
+        city: req.body.city,
+        price: req.body.price,
+        type: req.body.type,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        category: req.body.category,
+        priceRange: req.body.priceRange,
+        specification: req.body.specification,
+      };
+      await Property.findByIdAndUpdate(p_id, UpdateProperty, {
+        new: true,
+      });
+    }
+    res.json({
+      message: "Payment successful",
+      success: true,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    res.json({
+      message: "Payment failed",
+      success: false,
+    });
+  }
+});
 // Admin Side
 router.post("/create-post-admin", async (req, res) => {
   try {
@@ -278,4 +320,5 @@ router.post("/create-post-admin", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;
